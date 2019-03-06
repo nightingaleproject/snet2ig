@@ -1,0 +1,27 @@
+{
+  "source": "<%= igfile %>",
+  "version": "<%= fhirversion %>",
+  "license": "CC0-1.0",
+  "npm-name": "<%= npmname %>",
+  "canonicalBase": "<%= canonicalbase %>",
+  "paths" : {
+    "resources" : "resources",
+    "pages" : "pages",
+    "temp" : "temp",
+    "qa" : "qa",
+    "output" : "output",
+    "specification" : "http://hl7.org/fhir/"
+  },
+  "dependencyList": [
+    <% dependencies.each do |dep| %>
+    {
+      "version": "<%= dep['version'] %>",
+      "name": "<%= dep['name'] %>",
+      "location": "<%= dep['location'] %>"
+    }<% if dependencies.last != dep %>,<% end %>
+    <% end %>
+  ],
+  "resources" : {
+    "*": "*"
+  }
+}

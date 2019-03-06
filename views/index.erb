@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous" />
+    <style>
+      fieldset {
+        border-radius: 5px;
+      }
+    </style>
+    <title>snet2ig (STU3)</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="display-4 pt-2">snet2ig (STU3, XML)</h1>
+      <h5>Convert a Simplifier.NET Guide Export ZIP into an STU3 FHIR IG that is compatible with the FHIR IG Publishing Tool.</h5>
+      <br />
+
+      <form action="/" enctype="multipart/form-data" method="POST">
+        <label for="files">Upload Simplifier.NET Guide (obtained through the "Export" button under the "Guide" tab on your project page):</label>
+        <div id="files">
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="ig" id="ig" />
+              <label class="custom-file-label" for="ig">Select Guide Export .ZIP File</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Name:</legend>
+              <input id="igname" type="text" name="igname" value="vrdr" class="form-control" />
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Title:</legend>
+              <input id="igtitle" type="text" name="igtitle" value="Vital Records Death Reporting" class="form-control" />
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Description:</legend>
+              <textarea rows="3" id="igdescription" name="igdescription" class="form-control">The purpose of the VRDR FHIR IG is to provide guidance regarding the use of FHIR resources as a conduit for data required in the bidirectional exchange of mortality data between State-run Public Health Agencies (PHA) Vital Records offices and U.S. National Center for Health Statistics (NCHS).</textarea>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Publisher Name:</legend>
+              <input id="igpublisher" type="text" name="igpublisher" value="Health Level Seven International" class="form-control" />
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG URL:</legend>
+              <input id="igurl" type="text" name="igurl" value="http://hl7.org/fhir/us/vrdr/ImplementationGuide/vrdr" class="form-control" />
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">NPM Name / Package ID:</legend>
+              <input id="npmname" type="text" name="npmname" value="hl7.fhir.vrdr" class="form-control" />
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">Canonical Base URL:</legend>
+              <input id="canonicalbase" type="text" name="canonicalbase" value="http://hl7.org/fhir/us/vrdr" class="form-control" />
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">Name of Home Page:</legend>
+              <input id="igindex" type="text" name="igindex" value="Introduction.html" class="form-control" />
+            </fieldset>
+          </div>
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Source Filename:</legend>
+              <input id="igfile" type="text" name="igfile" value="vitalrecordsdeathreporting.xml" class="form-control" />
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Dependencies:</legend>
+              <div id="deps-list">
+                <div class="form-row pb-2 pt-1" id="depsrow">
+                  <div class="col">
+                    <label for="depname">Name:</label>
+                    <input type="text" class="form-control" value="uscore" name="depname-0" id="depname-0">
+                  </div>
+                  <div class="col">
+                    <label for="deplocation">Location:</label>
+                    <input type="text" class="form-control" value="http://hl7.org/fhir/us/core" name="deplocation-0" id="deplocation-0">
+                  </div>
+                  <div class="col">
+                    <label for="depversion">Version:</label>
+                    <input type="text" class="form-control" value="current" name="depversion-0" id="depversion-0">
+                  </div>
+                </div>
+              </div>
+              <div class="float-right">
+                <button type="button" id="adddep" class="btn btn-success btn-sm">Add New</button>
+                <button type="button" id="removedep" class="btn btn-danger btn-sm">Remove Last</button>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">Options:</legend>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="deleteduplicateresources" name="deleteduplicateresources" checked>
+                <label class="form-check-label" for="deleteduplicateresources">
+                  Attempt to delete duplicate resources.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="correctpagenames" name="correctpagenames" checked>
+                <label class="form-check-label" for="correctpagenames">
+                  Attempt to correct invalid profile page names (page names need to correspond to their resource type and id).
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <br />
+        <button type="submit" id="create" class="btn btn-primary btn-lg btn-block">Generate IG</button>
+        <br />
+      </form>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $("#create").get(0).disabled = true;
+      $("#removedep").get(0).disabled = true;
+      $(".custom-file-input").on("change", function() {
+        let fileName = $(this)
+          .val()
+          .split("\\")
+          .pop();
+        $(this)
+          .next(".custom-file-label")
+          .addClass("selected")
+          .html(fileName);
+          $("#create").get(0).disabled = false;
+      });
+      $("#adddep").on("click", function() {
+        $("#deps-list").append($("#depsrow").clone().find("input:text").val("").end());
+        $("#deps-list").children().each(function(i) {
+          $(this).children().each(function(j) {
+            if (j === 0) {
+              // Name
+              $(this).children().last().prop('id', 'depname-' + i);
+              $(this).children().last().prop('name', 'depname-' + i);
+            } else if (j === 1) {
+              // Location
+              $(this).children().last().prop('id', 'deplocation-' + i);
+              $(this).children().last().prop('name', 'deplocation-' + i);
+            } else if (j === 2) {
+              // Version
+              $(this).children().last().prop('id', 'depversion-' + i);
+              $(this).children().last().prop('name', 'depversion-' + i);
+            }
+          });
+        });
+        if ($("#deps-list").children().length > 1) {
+          $("#removedep").get(0).disabled = false;
+        }
+      });
+      $("#removedep").on("click", function() {
+        $("#deps-list").children().last().remove();
+        if ($("#deps-list").children().length < 2) {
+          $("#removedep").get(0).disabled = true;
+        }
+      });
+    </script>
+  </body>
+</html>
