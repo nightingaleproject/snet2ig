@@ -104,6 +104,16 @@
         <div class="form-row py-3">
           <div class="col">
             <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">IG Version:</legend>
+              <input id="igversion" type="text" name="igversion" value="1.0" class="form-control" />
+            </fieldset>
+          </div>
+
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
               <legend class="w-auto">IG Dependencies:</legend>
               <div id="deps-list">
                 <div class="form-row pb-2 pt-1" id="depsrow">
@@ -143,6 +153,12 @@
                 <input class="form-check-input" type="checkbox" id="correctpagenames" name="correctpagenames" checked>
                 <label class="form-check-label" for="correctpagenames">
                   Attempt to correct invalid profile page names (page names need to correspond to their resource type and id).
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="deletevsalreadyexists" name="deletevsalreadyexists" checked>
+                <label class="form-check-label" for="deletevsalreadyexists">
+                  Attempt to delete local value set definitions that already exist at http://hl7.org/fhir/ValueSet or http://hl7.org/fhir/us/core/ValueSet...
                 </label>
               </div>
             </fieldset>
