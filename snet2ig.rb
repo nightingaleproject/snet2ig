@@ -152,7 +152,7 @@ post '/' do
   Dir.glob(File.join('ig', 'pages', '*.html')).each do |f|
     htmlfile = File.read(f)
     htmlfile_f = File.new(f, 'w')
-    htmlfile_f.write Nokogiri::HTML(htmlfile).to_xhtml
+    htmlfile_f.write Nokogiri::HTML(htmlfile).to_xml(:indent_text => "\t", :indent=>1, :encoding => 'UTF-8')
     htmlfile_f.close
   end
 
@@ -227,6 +227,12 @@ post '/' do
     htmlfile.gsub!(/hl7.org/, 'www.hl7.org')
     htmlfile.gsub!(/<nav class="navbar navbar-default" role="navigation">/, '<!--status-bar--><nav class="navbar navbar-default" role="navigation">')
     htmlfile.gsub!(/<footer>/, '<footer igtool="footer">')
+
+    if params[:htmlduplicatecopies] == 'on'
+      htmlfile_dup_f = File.new(f.gsub(/-duplicate-[1-9]/, ''), 'w')
+      htmlfile_dup_f.write htmlfile
+      htmlfile_dup_f.close
+    end
 
     htmlfile_f.write htmlfile
     htmlfile_f.close
