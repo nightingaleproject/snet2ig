@@ -227,6 +227,7 @@ post '/' do
     htmlfile.gsub!(/hl7.org/, 'www.hl7.org')
     htmlfile.gsub!(/<nav class="navbar navbar-default" role="navigation">/, '<!--status-bar--><nav class="navbar navbar-default" role="navigation">')
     htmlfile.gsub!(/<footer>/, '<footer igtool="footer">')
+    htmlfile.gsub!('.txt', '.xml')
 
     if params[:htmlduplicatecopies] == 'on'
       htmlfile_dup_f = File.new(f.gsub(/-duplicate-[1-9]/, ''), 'w')
@@ -239,10 +240,30 @@ post '/' do
     end
   end
 
+  # Apply fixes to all pages
+  if params[:htmlduplicatecopies] == 'on'
+    Dir.glob(File.join('ig', 'pages', '**', '*.*ml')).each do |f|
+      htmlfile = File.read(f)
+      htmlfile_dup_f = File.new(f.gsub(/-duplicate-[1-9]/, ''), 'w')
+      htmlfile_dup_f.write htmlfile
+      htmlfile_dup_f.close
+    end
+    Dir.glob(File.join('ig', 'pages', '**', '*.*ml')).each do |f|
+      next unless f.include? 'StructureDefinition-'
+      unless File.exist?(f.gsub('StructureDefinition-', ''))
+        htmlfile = File.read(f)
+        htmlfile_dup_f = File.new(f.gsub('StructureDefinition-', ''), 'w')
+        htmlfile_dup_f.write htmlfile
+        htmlfile_dup_f.close
+      end
+    end
+  end
+
   # HTML page names MUST correspond to resource types + ids! Duplicate pages so they match what the publisher wants.
   # IMPROVEMENT: Potentially just rename pages. Might get tricky due to references in other pages.
   if params[:correctpagenames] == 'on'
     Dir.glob(File.join('ig', 'resources', '*.xml')).each do |f|
+      next if f.include? 'duplicate'
       xmlfile = File.read(f)
       if xmlfile.start_with?('<StructureDefinition')
         resource_id = /<id value=\"(.*?)\".?\/>/.match(xmlfile)[1]
