@@ -21,6 +21,10 @@
       <h5>Convert a Simplifier.NET Guide Export ZIP into an STU3 FHIR IG that is compatible with the FHIR IG Publishing Tool.</h5>
       <br />
 
+      <button type="button" id="autofillvrdr" class="btn btn-outline-primary">Autofill VRDR</button>
+      <button type="button" id="autofillbser" class="btn btn-outline-primary">Autofill BSeR</button> <br />
+      <br />
+
       <form action="/" enctype="multipart/form-data" method="POST">
         <label for="files">Upload Simplifier.NET Guide (obtained through the "Export" button under the "Guide" tab on your project page):</label>
         <div id="files">
@@ -229,6 +233,34 @@
         if ($("#deps-list").children().length < 2) {
           $("#removedep").get(0).disabled = true;
         }
+      });
+      $("#autofillvrdr").on("click", function() {
+        $("#igname").val("vrdr");
+        $("#igtitle").val("Vital Records Death Reporting");
+        $("#igdescription").val(
+          "The purpose of the VRDR FHIR IG is to provide guidance regarding the use of FHIR resources as a conduit for data required in the bidirectional exchange of mortality data between State-run Public Health Agencies (PHA) Vital Records offices and U.S. National Center for Health Statistics (NCHS)."
+				);
+				$("#igpublisher").val("Health Level Seven International");
+        $("#igurl").val("http://hl7.org/fhir/us/vrdr/ImplementationGuide/vrdr");
+				$("#igindex").val("Introduction.html");
+        $("#igfile").val("vitalrecordsdeathreporting.xml");
+        $("#fhirversion").val("3.0.1");
+        $("#npmname").val("hl7.fhir.vrdr");
+				$("#canonicalbase").val("http://hl7.org/fhir/us/vrdr");
+      });
+      $("#autofillbser").on("click", function() {
+        $("#igname").val("bser");
+        $("#igtitle").val("BSeR FHIR IG");
+        $("#igdescription").val(
+          "The BSeR FHIR implementation guide provides guidance for using the HL7 Fast Healthcare Interoperability Resources (FHIR) standard as an exchange format for Bidirectional Services eReferral (BSeR). It is a collection of FHIR resource profiles design for use in information exchanges supporting service provider referral and service outcome reporting. A key concept adopted in the design of the BSeR FHIR Profiles is the concept of parsimony. Program area referral and feedback transactions contain common transaction data and program specific data. A critical design requirement is to limit the exchange of clinical information to program areas to only that data that pertain to the program. Transaction participant data such as Patient, Referring Provider, and Servicing Provider are common to both referral and feedback transactions. The data content of each transaction type is partitioned into common and program specific data items. Some program specific data items pertain to multiple program areas; others are specific to a single subject area."
+				);
+				$("#igpublisher").val("Health Level Seven International");
+        $("#igurl").val("http://hl7.org/fhir/us/bser/ImplementationGuide/bser");
+				$("#igindex").val("Newitem-duplicate-8.html");
+        $("#igfile").val("bidirectionalservicesereferralfhirimplementationguide.xml");
+        $("#fhirversion").val("3.0.1");
+        $("#npmname").val("hl7.fhir.bser");
+				$("#canonicalbase").val("http://hl7.org/fhir/us/bser");
       });
     </script>
   </body>
