@@ -224,7 +224,7 @@ post '/' do
     htmlfile.gsub!(/\?v=.*?"/, '"')
     htmlfile.gsub!(/href="\/"/, '')
     htmlfile.gsub!('<a href=""></a>', '')
-    htmlfile.gsub!(/hl7.org/, 'www.hl7.org')
+    htmlfile.gsub!(/(?<!\www.)hl7.org/, 'www.hl7.org')
     htmlfile.gsub!(/<nav class="navbar navbar-default" role="navigation">/, '<!--status-bar--><nav class="navbar navbar-default" role="navigation">')
     htmlfile.gsub!(/<footer>/, '<footer igtool="footer">')
     htmlfile.gsub!('.txt', '.xml')
