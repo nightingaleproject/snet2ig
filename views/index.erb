@@ -79,7 +79,7 @@
           <div class="col">
             <fieldset class="border px-2 pb-3">
               <legend class="w-auto">NPM Name / Package ID:</legend>
-              <input id="npmname" type="text" name="npmname" value="hl7.fhir.vrdr" class="form-control" />
+              <input id="npmname" type="text" name="npmname" value="hl7.fhir.us.vrdr" class="form-control" />
             </fieldset>
           </div>
           <div class="col">
@@ -112,7 +112,15 @@
               <input id="igversion" type="text" name="igversion" value="1.0" class="form-control" />
             </fieldset>
           </div>
+        </div>
 
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">Ballot Sequence:</legend>
+              <input id="ballotsequence" type="text" name="ballotsequence" value="STU Ballot #1" class="form-control" />
+            </fieldset>
+          </div>
         </div>
 
         <div class="form-row py-3">
@@ -251,7 +259,9 @@
 				$("#igindex").val("Introduction.html");
         $("#igfile").val("vitalrecordsdeathreporting.xml");
         $("#fhirversion").val("3.0.1");
-        $("#npmname").val("hl7.fhir.vrdr");
+        $("#ballotsequence").val("STU Ballot #1");
+        $("#igversion").val("1.0");
+        $("#npmname").val("hl7.fhir.us.vrdr");
 				$("#canonicalbase").val("http://hl7.org/fhir/us/vrdr");
       });
       $("#autofillbser").on("click", function() {
@@ -262,10 +272,12 @@
 				);
 				$("#igpublisher").val("Health Level Seven International");
         $("#igurl").val("http://hl7.org/fhir/us/bser/ImplementationGuide/bser");
-				$("#igindex").val("Newitem-duplicate-8.html");
+				$("#igindex").val("Introduction.html");
         $("#igfile").val("bidirectionalservicesereferralfhirimplementationguide.xml");
         $("#fhirversion").val("3.0.1");
-        $("#npmname").val("hl7.fhir.bser");
+        $("#ballotsequence").val("STU Ballot #2");
+        $("#igversion").val("2.0");
+        $("#npmname").val("hl7.fhir.us.bser");
 				$("#canonicalbase").val("http://hl7.org/fhir/us/bser");
       });
     </script>

@@ -188,7 +188,8 @@ post '/' do
                      dependencies: dependencies,
                      fhirversion: fhirversion,
                      npmname: params[:npmname],
-                     canonicalbase: params[:canonicalbase])
+                     canonicalbase: params[:canonicalbase],
+                     igversion: params[:igversion])
 
   # Apply fixes to root StructureDefinition
   igcontents = Nokogiri::XML(File.read(File.join('ig', 'resources', "#{params[:igfile]}"))).root.to_xml
@@ -220,7 +221,7 @@ post '/' do
     htmlfile = File.read(f)
     htmlfile_f = File.new(f, 'w')
 
-    htmlfile.gsub!('STU3', 'stu3')
+    htmlfile.gsub!('/STU3', '/stu3')
     htmlfile.gsub!(/\?v=.*?"/, '"')
     htmlfile.gsub!(/href="\/"/, '')
     htmlfile.gsub!('<a href=""></a>', '')
@@ -228,7 +229,12 @@ post '/' do
     htmlfile.gsub!(/<nav class="navbar navbar-default" role="navigation">/, '<!--status-bar--><nav class="navbar navbar-default" role="navigation">')
     htmlfile.gsub!(/<footer>/, '<footer igtool="footer">')
     htmlfile.gsub!('.txt', '.xml')
-
+    htmlfile.gsub!(/<span>Version: .*?<\/span>/, '<span>Version: ' + params[:igversion] + '</span>')
+    footerstamp1 = "© HL7.org 2018+ (<a href=\"http://www.hl7.org/Special/committees/pher/index.cfm\"/>Public Health WG</a>) #{params[:npmname]}##{params[:igversion]} based on <a style=\"color: #81BEF7\" href=\"http://hl7.org/fhir/STU3/\">FHIR v3.0.1</a> generated #{DateTime.now.strftime("%F")}."
+    footerstamp2 = "Links: <a style=\"color: #81BEF7\" href=\"index.html\">Table of Contents</a> | <a style=\"color: #81BEF7\" href=\"qa.html\">QA Report</a> | <a style=\"color: #81BEF7\" href=\"History.html\">Version History</a> | <a style=\"color: #81BEF7\" rel=\"license\" href=\"http://build.fhir.org/license.html\"><img style=\"border-style: none;\" alt=\"CC0\" src=\"cc0.png\"/></a> | <a style=\"color: #81BEF7\" href=\"https://gforge.hl7.org/gf/project/fhir/tracker/\" target=\"_blank\">Propose a change</a>"
+    htmlfile.gsub!("<p>Powered by <b>SIMPLIFIER.NET</b></p>", footerstamp1 + "<br />" + footerstamp2)
+    header1 = "#{params[:igtitle]} v#{params[:igversion]} - #{params[:ballotsequence]}"
+    htmlfile.gsub!(/<a >\r\n                                .*?\r\n                            <\/a>/, header1)
     if params[:htmlduplicatecopies] == 'on'
       htmlfile_dup_f = File.new(f.gsub(/-duplicate-[1-9]/, ''), 'w')
       htmlfile_dup_f.write htmlfile
