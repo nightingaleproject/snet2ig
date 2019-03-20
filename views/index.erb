@@ -126,6 +126,15 @@
         <div class="form-row py-3">
           <div class="col">
             <fieldset class="border px-2 pb-3">
+              <legend class="w-auto">History URL:</legend>
+              <input id="historyurl" type="text" name="historyurl" value="History.html" class="form-control" />
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="form-row py-3">
+          <div class="col">
+            <fieldset class="border px-2 pb-3">
               <legend class="w-auto">IG Dependencies:</legend>
               <div id="deps-list">
                 <div class="form-row pb-2 pt-1" id="depsrow">
@@ -261,6 +270,7 @@
         $("#fhirversion").val("3.0.1");
         $("#ballotsequence").val("STU Ballot #1");
         $("#igversion").val("1.0");
+        $("#historyurl").val("History.html");
         $("#npmname").val("hl7.fhir.us.vrdr");
 				$("#canonicalbase").val("http://hl7.org/fhir/us/vrdr");
       });
@@ -277,6 +287,7 @@
         $("#fhirversion").val("3.0.1");
         $("#ballotsequence").val("STU Ballot #2");
         $("#igversion").val("2.0");
+        $("#historyurl").val("history.html");
         $("#npmname").val("hl7.fhir.us.bser");
 				$("#canonicalbase").val("http://hl7.org/fhir/us/bser");
       });
