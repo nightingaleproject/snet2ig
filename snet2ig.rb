@@ -234,7 +234,11 @@ post '/' do
     footerstamp2 = "Links: <a style=\"color: #81BEF7\" href=\"index.html\">Table of Contents</a> | <a style=\"color: #81BEF7\" href=\"qa.html\">QA Report</a> | <a style=\"color: #81BEF7\" href=\"#{params[:historyurl]}\">Version History</a> | <a style=\"color: #81BEF7\" rel=\"license\" href=\"http://build.fhir.org/license.html\"><img style=\"border-style: none;\" alt=\"CC0\" src=\"cc0.png\"/></a> | <a style=\"color: #81BEF7\" href=\"https://gforge.hl7.org/gf/project/fhir/tracker/\" target=\"_blank\">Propose a change</a>"
     htmlfile.gsub!("<p>Powered by <b>SIMPLIFIER.NET</b></p>", footerstamp1.force_encoding('utf-8') + "<br />" + footerstamp2.force_encoding('utf-8'))
     header1 = "#{params[:igtitle]} v#{params[:igversion]} - #{params[:ballotsequence]}"
-    htmlfile.gsub!(/<a >\r\n                                .*?\r\n                            <\/a>/, header1)
+	
+	htmlfile.sub!(params[:igtitle], 'tmp1234')
+	htmlfile.sub!(params[:igtitle], header1)
+	htmlfile.sub!('tmp1234', params[:igtitle])
+	
     if params[:htmlduplicatecopies] == 'on'
       htmlfile_dup_f = File.new(f.gsub(/-duplicate-[1-9]/, ''), 'w')
       htmlfile_dup_f.write htmlfile
