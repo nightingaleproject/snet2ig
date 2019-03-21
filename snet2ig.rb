@@ -218,7 +218,7 @@ post '/' do
     if f.include?('artifacts') && f.include?('html-example')
       File.delete(f) if File.exist?(f)
     else
-    htmlfile = File.read(f)
+    htmlfile = File.read(f, :encoding => "utf-8")
     htmlfile_f = File.new(f, 'w')
 
     htmlfile.gsub!('/STU3', '/stu3')
@@ -232,7 +232,7 @@ post '/' do
     htmlfile.gsub!(/<span>Version: .*?<\/span>/, '<span>Version: ' + params[:igversion] + '</span>')
     footerstamp1 = "© HL7.org 2018+ (<a href=\"http://www.hl7.org/Special/committees/pher/index.cfm\"/>Public Health WG</a>) #{params[:npmname]}##{params[:igversion]} based on <a style=\"color: #81BEF7\" href=\"http://hl7.org/fhir/STU3/\">FHIR v3.0.1</a> generated #{DateTime.now.strftime("%F")}."
     footerstamp2 = "Links: <a style=\"color: #81BEF7\" href=\"index.html\">Table of Contents</a> | <a style=\"color: #81BEF7\" href=\"qa.html\">QA Report</a> | <a style=\"color: #81BEF7\" href=\"#{params[:historyurl]}\">Version History</a> | <a style=\"color: #81BEF7\" rel=\"license\" href=\"http://build.fhir.org/license.html\"><img style=\"border-style: none;\" alt=\"CC0\" src=\"cc0.png\"/></a> | <a style=\"color: #81BEF7\" href=\"https://gforge.hl7.org/gf/project/fhir/tracker/\" target=\"_blank\">Propose a change</a>"
-    htmlfile.gsub!("<p>Powered by <b>SIMPLIFIER.NET</b></p>", footerstamp1 + "<br />" + footerstamp2)
+    htmlfile.gsub!("<p>Powered by <b>SIMPLIFIER.NET</b></p>", footerstamp1.force_encoding('utf-8') + "<br />" + footerstamp2.force_encoding('utf-8'))
     header1 = "#{params[:igtitle]} v#{params[:igversion]} - #{params[:ballotsequence]}"
     htmlfile.gsub!(/<a >\r\n                                .*?\r\n                            <\/a>/, header1)
     if params[:htmlduplicatecopies] == 'on'
