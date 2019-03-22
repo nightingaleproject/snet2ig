@@ -1,7 +1,5 @@
 # snet2ig
 
-![snet2ig](https://user-images.githubusercontent.com/14923551/53974278-42d2d780-40d0-11e9-9680-fa285039af78.png)
-
 Convert a Simplifier.NET Guide Export ZIP into an STU3 FHIR IG that is compatible with the FHIR IG Publishing Tool.
 
 Intended for VRDR Project, but may be useful for other IGs as well.
